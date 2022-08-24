@@ -1,0 +1,1 @@
+The maximum bitwise-OR is the bitwise-OR of the whole array
