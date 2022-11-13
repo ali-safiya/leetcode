@@ -1,33 +1,31 @@
 class Solution {
     public String reverseWords(String s) {
         
-        int n = s.length();
-        StringBuilder ans = new StringBuilder(); 
-        int i =n-1;
-        int j=0;
-        while(i>=0){
+       int n=s.length();
+       int j=n-1;
+       int i=0;
+        
+       StringBuilder ans = new StringBuilder();
+        
+        while(j>=0){
             
-            if(s.charAt(i)== ' '){
-                i--;
+            if(s.charAt(j) == ' '){
+                j--;
                 continue;
             }
-            j=i;
-            
-            while(j>=0 && s.charAt(j) != ' ' ){
-                j--;
+            i=j;
+            while(i>=0 && s.charAt(i)!= ' '){
+                i--;
             }
-           // System.out.println(i + " "+ j);
-            ans.append(" " + s.substring(j+1,i+1));
-            System.out.println(ans);
             
-            i=j-1;
+            ans.append(" " + s.substring(i+1,j+1));
+           
             
-            
+            j=i-1;
         }
         
-        if(ans.length()>1){
+        if(ans.length()>1)
             ans.deleteCharAt(0);
-        }
         
         return ans.toString();
     }
