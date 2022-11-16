@@ -1,0 +1,1 @@
+map.values() <--- to get all items in map and to store in another list or set or map
