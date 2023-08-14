@@ -1,4 +1,4 @@
-// { Driver Code Starts
+//{ Driver Code Starts
 //Initial Template for Java
 
 import java.math.*;
@@ -56,7 +56,8 @@ class Driverclass
 		}
 		out.flush();
 	}
-}// } Driver Code Ends
+}
+// } Driver Code Ends
 
 
 class Solution
@@ -64,22 +65,31 @@ class Solution
     //Function to return the minimum cost of connecting the ropes.
     long minCost(long arr[], int n) 
     {
-        if(n==1)
-        return 0;
+        // your code here
+        
         PriorityQueue<Long> pq = new PriorityQueue<>();
         
         for(long ele : arr){
             pq.add(ele);
         }
-        long ans=0;
-        while(pq.size()!=1){
-            long first = pq.poll();
-            long sec = pq.poll();
+        
+        long cost =0;
+        
+        while(pq.size()>1){
             
-            ans+=first+sec;
+            long a=0,b=0;
             
-            pq.add(first+sec);
+            if(!pq.isEmpty()){
+                a=pq.poll();
+            }
+            if(!pq.isEmpty()){
+                b=pq.poll();
+            }
+            // System.out.println(pq +" "+a +" "+b);
+            pq.add(a+b);
+            cost+=(a+b);
+            
         }
-        return ans;
+        return cost;
     }
 }
