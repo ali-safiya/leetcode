@@ -42,33 +42,36 @@ class Solution
     int nodeLevel(int V, ArrayList<ArrayList<Integer>> adj, int X)
     {
         // code here
-        
         Queue<Integer> q = new LinkedList<Integer>();
         
         boolean[] visited = new boolean[V];
         
         q.add(0);
-        visited[0]= true;
-        int count=0;
+        visited[0]=true;
+        int ans=0;
+        
         while(!q.isEmpty()){
             
-            int size= q.size();
-            for(int i=0; i< size;i++){
+            int size = q.size();
+            
+            for(int i=0;i<size;i++){
                 
                 int cur = q.poll();
-                
-                if(cur== X)
-                    return count;
-                
-                for(int child : adj.get(cur)){
-                    
-                    if(!visited[child]){
-                        visited[child]=true;
-                        q.add(child);
-                    }
+                if(cur==X){
+                    return ans;
                 }
+                
+                for(int children : adj.get(cur)){
+                    
+                    if(!visited[children]){
+                        q.add(children);
+                        visited[children]=true;
+                    }
+                    
+                }
+                
             }
-            count++;
+            ans++;
         }
         return -1;
     }
