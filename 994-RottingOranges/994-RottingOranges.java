@@ -1,49 +1,49 @@
-// Last updated: 03/03/2026, 03:23:01
+// Last updated: 03/08/2026, 19:34:55
 1class Solution {
-2    public int orangesRotting(int[][] grid) {
-3
-4        Queue<Pair<Integer,Integer>> q = new ArrayDeque<>();
-5
-6        int[][] dirs = new int[][]{{1,0},{-1,0},{0,1},{0,-1}};
+2    public int[][] highestPeak(int[][] isWater) {
+3        
+4        int row = isWater.length;
+5        int col = isWater[0].length;
+6        int[][] dir = new int[][]{{0,1},{1,0},{0,-1},{-1,0}};
 7
-8        int m = grid.length;
-9        int n = grid[0].length;
-10
-11        int freshCount =0;
-12
-13        for(int i=0;i<m;i++){
-14            for(int j=0;j<n;j++){
-15                if(grid[i][j] == 2){
-16                    q.add(new Pair<>(i,j));
+8        int[][] height = new int[row][col];
+9
+10        Queue<int[]> q = new LinkedList<>();
+11
+12        for(int i=0;i<row;i++){
+13            for(int j=0;j<col;j++){
+14                if(isWater[i][j] == 1){
+15                    height[i][j] =0;
+16                    q.add(new int[]{i,j});
 17                }
-18                if(grid[i][j]==1){
-19                    freshCount++;
+18                else{
+19                    height[i][j] = -1;
 20                }
 21            }
 22        }
-23        int totalTime =0;
-24        while(!q.isEmpty() && freshCount>0){
-25            
+23
+24        while(!q.isEmpty()){
+25
 26            int size = q.size();
 27
-28            for(int i =0;i<size;i++){
-29                Pair<Integer,Integer> cur = q.poll();
-30
-31                for(int j=0;j<4;j++){
-32
-33                    int x = cur.getKey() + dirs[j][0];
-34                    int y = cur.getValue() + dirs[j][1];
-35
-36                    if(x<0 || y <0 || x >=m || y >=n || grid[x][y] !=1) continue;
-37                    
-38                    grid[x][y] = 2;
-39                    freshCount--;
-40                    q.add(new Pair<>(x,y));
-41                }
-42                
-43            }
-44            totalTime++;
+28            while(size-- > 0){
+29
+30                int[] cur = q.poll();
+31
+32                for(int i=0;i<dir.length;i++){
+33
+34                    int x = cur[0] + dir[i][0];
+35                    int y = cur[1] + dir[i][1];
+36
+37                    if(x < 0 || y < 0 || x >= row || y >= col || isWater[x][y]==1)
+38                        continue;
+39                    
+40                    height[x][y] = height[cur[0]][cur[1]]+1;
+41                    isWater[x][y] = 1;
+42                    q.add(new int[]{x,y});
+43                } 
+44            }
 45        }
-46        return freshCount == 0? totalTime : -1 ;
+46        return height;
 47    }
 48}
